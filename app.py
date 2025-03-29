@@ -1,7 +1,17 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 
-st.set_page_config(page_title="Systemic Resilience Simulator", layout="wide")
+st.set_page_config(
+    page_title="Systemic Resilience Simulator",
+    page_icon="🧠",
+    layout="wide",
+    initial_sidebar_state="auto"
+)
+
+st.markdown("""
+**Systemic Resilience Simulator**  
+Explore how policy, infrastructure, and investment decisions affect the real cost of living, social outcomes, and long-term stability.
+""")
 
 st.title("🧠 Systemic Resilience Simulator")
 
@@ -49,19 +59,23 @@ in innovation, health, education, and economic resilience.
 - Corporate gains from healthier, more creative society
 """)
 
-    st.markdown("""
-**📊 Data Sources:**
-- Education benefit estimates adapted from OECD and U.S. Census models
-- Health cost impacts from Medicaid expansion studies (KFF)
-- Entrepreneurial growth data from World Bank & small business grants
-- Stress data from APA national workforce stress surveys
-""")
+    ubi_value = st.slider("Select UBI per Adult per Month ($)", 0, 1500, 1000, step=100)
+
+    stress = 100 - ubi_value * 0.03
+    education = ubi_value * 0.025
+    health_savings = ubi_value * 0.015
+    biz_growth = ubi_value * 0.012
+
+    st.metric("🧠 Stress Index (Lower is Better)", f"{round(stress, 1)}")
+    st.metric("🩺 Health Cost Reduction", f"{round(health_savings, 1)}%")
+    st.metric("📚 Education Uptake (%)", f"{round(education, 1)}%")
+    st.metric("📦 Small Biz Growth", f"{round(biz_growth, 1)}%")
 
     ubi_levels = [0, 500, 1000, 1500]
-    societal_stress = [100, 75, 55, 40]  # Index (lower is better)
-    education_gain = [0, 10, 25, 40]     # % increase
-    health_cost_reduction = [0, 5, 15, 25]  # % reduction
-    small_biz_growth = [0, 5, 12, 20]    # % growth
+    societal_stress = [100, 75, 55, 40]
+    education_gain = [0, 10, 25, 40]
+    health_cost_reduction = [0, 5, 15, 25]
+    small_biz_growth = [0, 5, 12, 20]
 
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.plot(ubi_levels, societal_stress, marker='o', label="Societal Stress Index (↓ good)")
@@ -75,6 +89,14 @@ in innovation, health, education, and economic resilience.
     ax.grid(True)
     ax.legend()
     st.pyplot(fig)
+
+    st.markdown("""
+**📊 Data Sources:**
+- Education benefit estimates adapted from OECD and U.S. Census models
+- Health cost impacts from Medicaid expansion studies (KFF)
+- Entrepreneurial growth data from World Bank & small business grants
+- Stress data from APA national workforce stress surveys
+""")
 
     st.info("""
 💡 *This module shows that even modest stabilization can ripple through society in ways that reduce emergency costs and unlock new participation in education, care work, and entrepreneurship.*
