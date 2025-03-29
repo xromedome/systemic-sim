@@ -162,6 +162,11 @@ This module simulates how different infrastructure investment levels affect syst
 - Moderate Investment → Slow decline
 - Low Investment → Accelerated decay
 - Neglect → Rapid systemic failure
+
+**Key Assumptions:**
+- Decay rates are exponential and reflect deferred maintenance
+- Risk functions are nonlinear and escalate as quality falls
+- Costs are per-capita estimates based on national averages and infrastructure reports
 """)
 
     investment_option = st.selectbox("Select Infrastructure Investment Level", [
@@ -207,11 +212,71 @@ This module simulates how different infrastructure investment levels affect syst
     ax.grid(True)
     st.pyplot(fig)
 
+    st.markdown("""
+**📊 Data Sources:**
+- American Society of Civil Engineers (ASCE) Infrastructure Report Card
+- Federal Transit Administration: Urban Commute Data
+- Department of Energy: Grid Reliability & Outage Costs
+- Kaiser Family Foundation (KFF): Environmental & Infrastructure Health Impacts
+- U.S. Census & GAO estimates on public works and deferred maintenance
+""")
+
     st.info("""
-📌 *This module shows how even modest underinvestment can lead to exponential increases in human burden. It helps us visualize how avoiding maintenance today multiplies systemic fragility tomorrow.*
+💡 *This module shows how even modest underinvestment can lead to exponential increases in human burden. It helps us visualize how avoiding maintenance today multiplies systemic fragility tomorrow.*
 """)
 with tab4:
-    st.write("🛠️ Module C coming soon: Education Access and Generational Outcomes")
+    st.header("🎓 Module C: Education Access & Generational Opportunity")
+    st.markdown("""
+This module explores how access to affordable, high-quality education impacts generational mobility, wage growth, and community development.
+
+**Scenarios:**
+- High Access: Universal, low-cost, locally available education and training
+- Moderate Access: Public K-12, some trade/college affordability
+- Limited Access: Debt-heavy higher ed, weak vocational systems
+- Education Desert: Poor school quality, minimal post-secondary access
+
+**Key Assumptions:**
+- Education accessibility score drives long-term wage lift
+- Intergenerational compounding benefits modeled as % gains
+- Low access correlates with increased incarceration and lower life expectancy
+""")
+
+    access_option = st.selectbox("Select Education Access Level", [
+        "High Access", "Moderate Access", "Limited Access", "Education Desert"
+    ])
+
+    years = list(range(2025, 2076, 5))
+    def lifetime_opportunity(access):
+        base = {
+            "High Access": 1.05,
+            "Moderate Access": 1.03,
+            "Limited Access": 1.01,
+            "Education Desert": 0.98
+        }[access]
+        return [100 * (base ** i) for i in range(len(years))]
+
+    opp_curve = lifetime_opportunity(access_option)
+
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.plot(years, opp_curve, marker='o', linewidth=2)
+    ax.set_title(f"Projected Intergenerational Opportunity: {access_option}")
+    ax.set_ylabel("Opportunity Index (vs 2025 = 100)")
+    ax.set_xlabel("Year")
+    ax.grid(True)
+    st.pyplot(fig)
+
+    st.markdown("""
+**📊 Data Sources:**
+- Brookings: Education & Lifetime Earnings
+- U.S. Dept of Ed: Access Metrics, School Funding, and Attainment
+- Pew & Urban Institute: Intergenerational Mobility
+- OECD: Global Education Equity Models
+- Vera Institute: Education & Incarceration Risk Reduction
+""")
+
+    st.info("""
+🎓 *Education isn’t just personal — it's infrastructural. When entire communities are cut off from learning, the effects cascade across generations.*
+""")
 with tab5:
     st.write("🛠️ Module D coming soon: Agricultural Efficiency vs Labor Needs")
 with tab6:
