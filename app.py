@@ -10,7 +10,9 @@ st.set_page_config(
 
 st.markdown("""
 **Systemic Resilience Simulator**  
-Explore how policy, infrastructure, and investment decisions affect the real cost of living, social outcomes, and long-term stability.
+Explore how system-level decisions — from infrastructure to income policy — shape real-world outcomes like housing stability, education access, and long-term prosperity.
+
+This tool simulates structural pressure points, helps surface overlooked costs, and suggests new incentive paths for sustainable economic wellbeing.
 """)
 
 st.title("🧠 Systemic Resilience Simulator")
@@ -151,7 +153,63 @@ This module estimates the baseline monthly cost of sustaining a working adult in
 """)
 
 with tab3:
-    st.write("🛠️ Module B coming soon: Infrastructure Investment vs Decay")
+    st.header("🏗️ Module B: Infrastructure Decay vs Investment")
+    st.markdown("""
+This module simulates how different infrastructure investment levels affect system quality over time — and how that translates into human costs like power outages, commute disruption, and repair burdens.
+
+**Scenarios:**
+- High Investment → Maintains quality
+- Moderate Investment → Slow decline
+- Low Investment → Accelerated decay
+- Neglect → Rapid systemic failure
+""")
+
+    investment_option = st.selectbox("Select Infrastructure Investment Level", [
+        "High Investment", "Moderate Investment", "Low Investment", "Neglect"
+    ])
+
+    years = list(range(2025, 2051))
+    decay_curves = {
+        "High Investment":    [100 - (y - 2025) * 0.3 for y in years],
+        "Moderate Investment": [100 - (y - 2025) * 1.0 for y in years],
+        "Low Investment":      [100 - (y - 2025) * 2.5 for y in years],
+        "Neglect":             [100 - (y - 2025) * 4.0 for y in years],
+    }
+
+    def human_cost_from_quality(q):
+        return (
+            5 + (100 - q) * 0.8,   # Power outage risk
+            2 + (100 - q) * 0.5,   # Commute disruption
+            1 + (100 - q) * 0.6,   # Healthcare risk
+            200 + (100 - q) * 20   # Repair cost
+        )
+
+    q_vals = decay_curves[investment_option]
+    power_risk, commute, health_risk, repair = [], [], [], []
+    for q in q_vals:
+        p, c, h, r = human_cost_from_quality(q)
+        power_risk.append(p)
+        commute.append(c)
+        health_risk.append(h)
+        repair.append(r)
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.plot(years, q_vals, label="Infrastructure Quality (0–100)", linewidth=2)
+    ax.plot(years, power_risk, label="Power Outage Risk (%)", linestyle='--')
+    ax.plot(years, health_risk, label="Healthcare Risk (%)", linestyle='--')
+    ax.plot(years, commute, label="Commute Delay (hrs/mo)", linestyle='--')
+    ax.plot(years, repair, label="Repair Cost ($/yr)", linestyle='--')
+
+    ax.set_title(f"Projected System Decay and Human Impact: {investment_option}")
+    ax.set_xlabel("Year")
+    ax.set_ylabel("Index or Cost")
+    ax.legend()
+    ax.grid(True)
+    st.pyplot(fig)
+
+    st.info("""
+📌 *This module shows how even modest underinvestment can lead to exponential increases in human burden. It helps us visualize how avoiding maintenance today multiplies systemic fragility tomorrow.*
+""")
 with tab4:
     st.write("🛠️ Module C coming soon: Education Access and Generational Outcomes")
 with tab5:
