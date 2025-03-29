@@ -17,6 +17,13 @@ This tool simulates structural pressure points, helps surface overlooked costs, 
 
 st.title("🧠 Systemic Resilience Simulator")
 
+st.download_button(
+    label="📥 Download Full Report (Coming Soon)",
+    data="Coming soon: downloadable summary of all modules and results.",
+    file_name="Systemic_Resilience_Simulator_Summary.txt",
+    mime="text/plain"
+)
+
 # Intro Section
 st.markdown("""
 > **What does it really cost to be alive in modern society?**
@@ -106,6 +113,15 @@ in innovation, health, education, and economic resilience.
     health_cost_reduction = [0, 5, 15, 25]
     small_biz_growth = [0, 5, 12, 20]
 
+    import pandas as pd
+    df_ubi = pd.DataFrame({
+        "UBI ($/month)": ubi_levels,
+        "Societal Stress Index": societal_stress,
+        "Education Uptake (%)": education_gain,
+        "Health Cost Reduction (%)": health_cost_reduction,
+        "Small Biz Growth (%)": small_biz_growth
+    })
+
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.plot(ubi_levels, societal_stress, marker='o', label="Societal Stress Index (↓ good)")
     ax.plot(ubi_levels, education_gain, marker='o', label="Education Participation (%)")
@@ -118,6 +134,13 @@ in innovation, health, education, and economic resilience.
     ax.grid(True)
     ax.legend()
     st.pyplot(fig)
+
+    st.download_button(
+        label="⬇️ Download UBI Simulation Data (CSV)",
+        data=df_ubi.to_csv(index=False),
+        file_name="ubi_simulation_data.csv",
+        mime="text/csv"
+    )
 
     st.markdown("""
 **📊 Data Sources:**
@@ -465,6 +488,8 @@ This module explores how the loss of collective technical, scientific, and socia
 
     st.info("""
 📚 *Civilizations collapse when no one remembers how they worked. Investing in memory — not just tech — is the ultimate form of sustainability.*
+""")
+
 """)
 
 
