@@ -41,7 +41,7 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
     "Module G: Stability & Redistribution",
     "Module A: Cost of Living",
     "Module B: Infrastructure Decay",
-    "Module C: Education + Generational Opportunity (Coming Soon)",
+    "Module C: Education + Generational Opportunity",
     "Module D: Food System Capacity (Coming Soon)",
     "Module E: Debt + Wealth Lock-in (Coming Soon)",
     "Module F: Knowledge Attrition (Coming Soon)"
