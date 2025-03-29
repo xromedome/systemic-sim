@@ -162,6 +162,11 @@ This module simulates how different infrastructure investment levels affect syst
 - Moderate Investment → Slow decline
 - Low Investment → Accelerated decay
 - Neglect → Rapid systemic failure
+
+**Key Assumptions:**
+- Decay rates are exponential and reflect deferred maintenance
+- Risk functions are nonlinear and escalate as quality falls
+- Costs are per-capita estimates based on national averages and infrastructure reports
 """)
 
     investment_option = st.selectbox("Select Infrastructure Investment Level", [
@@ -207,8 +212,17 @@ This module simulates how different infrastructure investment levels affect syst
     ax.grid(True)
     st.pyplot(fig)
 
+    st.markdown("""
+**📊 Data Sources:**
+- American Society of Civil Engineers (ASCE) Infrastructure Report Card
+- Federal Transit Administration: Urban Commute Data
+- Department of Energy: Grid Reliability & Outage Costs
+- Kaiser Family Foundation (KFF): Environmental & Infrastructure Health Impacts
+- U.S. Census & GAO estimates on public works and deferred maintenance
+""")
+
     st.info("""
-📌 *This module shows how even modest underinvestment can lead to exponential increases in human burden. It helps us visualize how avoiding maintenance today multiplies systemic fragility tomorrow.*
+💡 *This module shows how even modest underinvestment can lead to exponential increases in human burden. It helps us visualize how avoiding maintenance today multiplies systemic fragility tomorrow.*
 """)
 with tab4:
     st.write("🛠️ Module C coming soon: Education Access and Generational Outcomes")
