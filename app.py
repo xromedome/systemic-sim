@@ -386,5 +386,57 @@ This module simulates how debt burden and wealth concentration reduce economic m
 📉 *When debt rises faster than income and asset access is gated, entire populations become locked out of mobility. This module explores how policy can reverse that cycle.*
 """)
 with tab7:
-    st.write("🛠️ Module F coming soon: Knowledge Attrition, Inheritance, and Collapse Prevention")
+    st.header("📚 Module F: Knowledge Attrition & Collapse Prevention")
+    st.markdown("""
+This module explores how the loss of collective technical, scientific, and social knowledge contributes to societal fragility — and how intergenerational learning systems can act as buffers against collapse.
+
+**Scenarios:**
+- Civic Stewardship: Open access to public research, skilled trades, shared archives
+- Tech Lock-In: Corporate silos, subscription-only knowledge, weak public science
+- Cultural Disruption: Lost oral traditions, language death, community dislocation
+- Collapse Cascade: Generational disconnect + labor drain + legacy loss
+
+**Key Assumptions:**
+- Public knowledge retention is a form of infrastructure
+- Societies with shared civic knowledge are more resilient to shocks
+- Collapse risk rises when fewer people understand how systems work
+""")
+
+    knowledge_model = st.selectbox("Select Knowledge Retention Scenario", [
+        "Civic Stewardship", "Tech Lock-In", "Cultural Disruption", "Collapse Cascade"
+    ])
+
+    years = list(range(2025, 2080, 5))
+    base_retention = {
+        "Civic Stewardship": 0.99,
+        "Tech Lock-In": 0.97,
+        "Cultural Disruption": 0.95,
+        "Collapse Cascade": 0.92
+    }[knowledge_model]
+
+    retention_index = [100 * (base_retention ** i) for i in range(len(years))]
+    collapse_risk = [min(100, 5 + (100 - r) * 0.7) for r in retention_index]
+
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.plot(years, retention_index, label="Knowledge Retention Index", linewidth=2)
+    ax.plot(years, collapse_risk, label="Systemic Collapse Risk (%)", linestyle='--')
+    ax.set_title(f"Knowledge Resilience vs Collapse Risk: {knowledge_model}")
+    ax.set_ylabel("Index / Risk (%)")
+    ax.set_xlabel("Year")
+    ax.grid(True)
+    ax.legend()
+    st.pyplot(fig)
+
+    st.markdown("""
+**📊 Data Sources:**
+- UNESCO: Language & Cultural Loss Reports
+- OECD & World Bank: Open Access Science & Education
+- NSF: STEM Workforce and Technical Attrition
+- Internet Archive, Creative Commons: Public Knowledge Commons
+- Collapse Literature: Bardi, Tainter, Greer, and Sci-fi Forecasting
+""")
+
+    st.info("""
+📚 *Civilizations collapse when no one remembers how they worked. Investing in memory — not just tech — is the ultimate form of sustainability.*
+""")
 
