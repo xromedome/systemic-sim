@@ -489,7 +489,3 @@ This module explores how the loss of collective technical, scientific, and socia
     st.info("""
 📚 *Civilizations collapse when no one remembers how they worked. Investing in memory — not just tech — is the ultimate form of sustainability.*
 """)
-
-""")
-
-
