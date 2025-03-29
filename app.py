@@ -37,15 +37,42 @@ st.markdown("""
 """)
 
 # Tabs for different modules
-tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+tab0, tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+    "Summary & Policy Insights",
     "Module G: Stability & Redistribution",
     "Module A: Cost of Living",
     "Module B: Infrastructure Decay",
     "Module C: Education + Generational Opportunity",
-    "Module D: Food System Capacity ",
+    "Module D: Food System Capacity",
     "Module E: Debt + Wealth Lock-in",
-    "Module F: Knowledge Attrition "
+    "Module F: Knowledge Attrition"
 ])
+
+with tab0:
+    st.header("🧩 Summary & Policy Insights")
+    st.markdown("""
+This simulator reveals how multiple overlooked costs interact to strain modern life — and how systemic re-alignment could improve outcomes for everyone.
+
+### 🔑 Key Takeaways from Each Module:
+- **Stability Support** reduces emergency costs and improves education and business outcomes
+- **Cost of Living** often exceeds full-time wages, creating unavoidable deficits for millions
+- **Infrastructure Decay** raises human risk and long-term repair cost when underfunded
+- **Education Access** compounds opportunity or poverty across generations
+- **Food Systems** can overproduce yet fail due to poor distribution and labor gaps
+- **Debt Systems** trap populations in economic immobility
+- **Knowledge Loss** increases collapse risk when civic memory fades
+
+### 💡 Mutual Prosperity Incentive
+A new civic and economic framework:
+- Reward businesses for improving baseline well-being
+- View care, education, and public investment as *productive infrastructure*
+- Replace fragility incentives with resilience dividends
+
+**Taking care of people isn't charity — it's sustainable economics.**
+
+---
+📤 *Share this app. Use the data. Adapt the model. Help us imagine better systems.*
+    """)
 
 with tab1:
     st.header("📊 Stability & Work Redistribution")
@@ -439,4 +466,5 @@ This module explores how the loss of collective technical, scientific, and socia
     st.info("""
 📚 *Civilizations collapse when no one remembers how they worked. Investing in memory — not just tech — is the ultimate form of sustainability.*
 """)
+
 
