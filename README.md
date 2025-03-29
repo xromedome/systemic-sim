@@ -1,6 +1,6 @@
 # Systemic Resilience Simulator
 
-This app explores the effects of different social and economic policies, including Universal Basic Income, on public well-being and economic dynamics.
+An open simulator that explores system-wide impacts of infrastructure, wage levels, and public investment
 
 Built using [Streamlit](https://streamlit.io).
 
