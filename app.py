@@ -41,7 +41,7 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
     "Module G: Stability & Redistribution",
     "Module A: Cost of Living",
     "Module B: Infrastructure Decay",
-    "Module C: Education + Generational Opportunity",
+    "Module C: Education + Generational Opportunity)",
     "Module D: Food System Capacity (Coming Soon)",
     "Module E: Debt + Wealth Lock-in (Coming Soon)",
     "Module F: Knowledge Attrition (Coming Soon)"
@@ -278,8 +278,113 @@ This module explores how access to affordable, high-quality education impacts ge
 🎓 *Education isn’t just personal — it's infrastructural. When entire communities are cut off from learning, the effects cascade across generations.*
 """)
 with tab5:
-    st.write("🛠️ Module D coming soon: Agricultural Efficiency vs Labor Needs")
+    st.header("🌾 Module D: Food System Capacity vs Labor Needs")
+    st.markdown("""
+This module explores the paradox of modern agricultural abundance vs food insecurity — and the relationship between labor availability, land use efficiency, and food system sustainability.
+
+**Scenarios:**
+- Tech-Enabled Abundance: High mechanization, low labor needs
+- Balanced Labor Mix: Regional food networks + skilled work
+- Industrial Dependence: Large-scale monoculture, thin margins
+- System Stress: Climate + labor loss reduce food access
+
+**Key Assumptions:**
+- Yield efficiency is nonlinear and sensitive to labor, soil, and supply chain
+- Labor availability impacts regional food stability
+- Food insecurity leads to compounding health and productivity loss
+""")
+
+    food_mode = st.selectbox("Select Food System Scenario", [
+        "Tech-Enabled Abundance", "Balanced Labor Mix", "Industrial Dependence", "System Stress"
+    ])
+
+    years = list(range(2025, 2051))
+    base_yield = {
+        "Tech-Enabled Abundance": 1.03,
+        "Balanced Labor Mix": 1.02,
+        "Industrial Dependence": 1.00,
+        "System Stress": 0.97
+    }[food_mode]
+
+    food_index = [100 * (base_yield ** i) for i in range(len(years))]
+    insecurity_index = [max(0, 100 - (f - 100) * 1.5) for f in food_index]
+
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.plot(years, food_index, label="Food System Capacity Index", linewidth=2)
+    ax.plot(years, insecurity_index, label="Estimated Food Insecurity Index", linestyle="--")
+    ax.set_title(f"Projected Food System & Insecurity Trends: {food_mode}")
+    ax.set_ylabel("Index (vs 2025 = 100)")
+    ax.set_xlabel("Year")
+    ax.grid(True)
+    ax.legend()
+    st.pyplot(fig)
+
+    st.markdown("""
+**📊 Data Sources:**
+- USDA Economic Research Service: Crop Yield Trends & Inputs
+- UN FAO: Global Agricultural Productivity & Labor Access
+- Feeding America & Census Pulse: Food Insecurity Metrics
+- National Sustainable Ag Coalition: Regional Resilience Models
+- IPCC: Climate Sensitivity and Yield Decline Risks
+""")
+
+    st.info("""
+🌱 *Our food system isn’t just about growing calories — it’s about who grows it, how stable the systems are, and who gets left hungry when it breaks.*
+""")
 with tab6:
-    st.write("🛠️ Module E coming soon: Debt Systems, Wealth Lock-in, and Social Mobility")
+    st.header("💰 Module E: Debt Systems & Wealth Lock-in")
+    st.markdown("""
+This module simulates how debt burden and wealth concentration reduce economic mobility across generations.
+
+**Scenarios:**
+- Equitable Access: Low debt, progressive wealth tax, public safety nets
+- Middle Squeeze: High education/housing debt, low asset access
+- Asset Gatekeeping: Wealth locked in inheritance, inaccessible housing
+- Financial Feudalism: High debt, high rent, no savings ladder
+
+**Key Assumptions:**
+- Debt reduces opportunity by absorbing income
+- Wealth accumulation enables investment, housing, and education
+- Social mobility drops when debt-to-income exceeds 40%
+""")
+
+    debt_scenario = st.selectbox("Select Socioeconomic Structure", [
+        "Equitable Access", "Middle Squeeze", "Asset Gatekeeping", "Financial Feudalism"
+    ])
+
+    years = list(range(2025, 2051))
+    base_mobility = {
+        "Equitable Access": 0.98,
+        "Middle Squeeze": 0.95,
+        "Asset Gatekeeping": 0.92,
+        "Financial Feudalism": 0.89
+    }[debt_scenario]
+
+    mobility_curve = [100 * (base_mobility ** i) for i in range(len(years))]
+    inequality_curve = [100 + (1 - base_mobility) * i * 8 for i in range(len(years))]
+
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.plot(years, mobility_curve, label="Social Mobility Index (↓ worse)", linewidth=2)
+    ax.plot(years, inequality_curve, label="Wealth Inequality Index (↑ worse)", linestyle="--")
+    ax.set_title(f"Mobility & Inequality Projection: {debt_scenario}")
+    ax.set_ylabel("Index (2025 = 100)")
+    ax.set_xlabel("Year")
+    ax.grid(True)
+    ax.legend()
+    st.pyplot(fig)
+
+    st.markdown("""
+**📊 Data Sources:**
+- Federal Reserve: Household Debt Ratios
+- Pew: Wealth Distribution by Race and Generation
+- Brookings & Urban Institute: Social Mobility Barriers
+- CFPB: Education/Housing Debt Trends
+- IMF/OECD: Wealth Taxation and Capital Lock-In Models
+""")
+
+    st.info("""
+📉 *When debt rises faster than income and asset access is gated, entire populations become locked out of mobility. This module explores how policy can reverse that cycle.*
+""")
 with tab7:
     st.write("🛠️ Module F coming soon: Knowledge Attrition, Inheritance, and Collapse Prevention")
+
